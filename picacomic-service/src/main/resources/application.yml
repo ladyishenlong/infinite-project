@@ -9,3 +9,4 @@ spring:
 picacomic:
   url:
     base: https://picaapi.picacomic.com
+    login: ${picacomic.url.base}/auth/sign-in
