@@ -1,0 +1,11 @@
+server:
+  port: 6002
+
+spring:
+  application:
+    name: picacomic-service
+
+
+picacomic:
+  url:
+    base: https://picaapi.picacomic.com
