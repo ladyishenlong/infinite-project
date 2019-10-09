@@ -1,0 +1,37 @@
+server:
+  port: 7000
+
+spring:
+  application:
+    name: infinite-gateway
+  redis:
+    host: localhost
+    port: 6379
+  cloud:
+    consul:
+      host: localhost #配置consul地址
+      port: 8500 #配置consul端口
+    gateway:
+      discovery:
+        locator:
+          enabled: true #服务中心根据 service id 创建路由
+          lower-case-service-id: true #小写
+
+      #全局过滤器
+      default-filters:
+        - name: RequestRateLimiter # 限流配置 依赖于redis 限流返回状态码429
+          args:
+            key-resolver: '#{@ipKeyResolver}'
+            redis-rate-limiter.replenishRate: 15 #令牌桶每秒填充平均速度
+            redis-rate-limiter.burstCapacity: 100 #令牌桶总容量
+
+      #注册中心路由转发
+      routes:
+        - id: apiopen-service
+          uri: lb://apiopen-service
+          predicates:
+            - Path=/apiopen/**  #请求路径带上该前缀
+            - Method=GET,POST
+          filters:
+            - StripPrefix=1 #与path配饰使用，转发去除前缀
+

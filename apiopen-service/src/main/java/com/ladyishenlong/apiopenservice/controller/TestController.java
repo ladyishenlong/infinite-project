@@ -6,6 +6,7 @@ import com.ladyishenlong.apiopenservice.service.serviceImpl.WangYiNewsServiceImp
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -19,7 +20,7 @@ public class TestController {
     @Autowired
     private WangYiNewsService wangYiNewsService;
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public Object test() {
         return wangYiNewsService.getWangYiNews("1","1");
     }
