@@ -34,4 +34,12 @@ spring:
             - Method=GET,POST
           filters:
             - StripPrefix=1 #与path配饰使用，转发去除前缀
+        - id: isoyu-service
+          uri: lb://isoyu-service
+          predicates:
+            - Path=/isoyu/**  #请求路径带上该前缀
+            - Method=GET,POST
+          filters:
+            - StripPrefix=1 #与path配饰使用，转发去除前缀
+
 

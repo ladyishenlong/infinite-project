@@ -1,0 +1,18 @@
+server:
+  port: 6003
+
+spring:
+  application:
+    name: isoyu-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+
+isoyu:
+  url:
+    base: https://api.isoyu.com/api
+
+    cosplay: ${isoyu.url.base}/picture/index
+
