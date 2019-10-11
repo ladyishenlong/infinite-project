@@ -12,7 +12,7 @@ Vue.use(Router);
 Vue.use(iView);
 Vue.use(VueAxios,axios);
 
-// axios.defaults.baseURL="http://localhost:7000";
+axios.defaults.baseURL="http://localhost:7000";
 
 export default new Router({
   routes: [

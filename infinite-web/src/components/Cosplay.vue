@@ -7,11 +7,16 @@
 <script>
   export default {
     name: "Cosplay",
+    data(){
+      isoyuModel:{
+        
+      }
+    },
     methods: {
       cosplay(){
-        this.axios.get('http://localhost:7000/isoyu/cosplay/10')
+        this.axios.get('/isoyu/cosplay/10')
           .then((result)=>{
-            console.log(JSON.stringify(result))
+            console.log(JSON.stringify(result.data))
           })
           .catch((error)=>{
             console.log(error)
