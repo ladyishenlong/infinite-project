@@ -5,19 +5,22 @@
     <el-row :gutter="20">
 
       <div v-for=" modelItem in cosplayModels">
+
         <el-col :md="6">
           <el-card class="box-card">
 
-            <div>
-              <el-image 
-                        :src="modelItem.cover" :fit="cover" lazy></el-image>
-            </div>
+            <el-image
+              style="width: 200px;height:200px"
+              fit="cover"
+              :preview-src-list="modelItem.pics"
+              :src="modelItem.cover" lazy></el-image>
 
+            <div>{{modelItem.setname}}</div>
 
-            <!--            <div>{{modelItem.setid}}</div>-->
-            <div>咸鱼不行</div>
           </el-card>
         </el-col>
+
+
       </div>
 
     </el-row>
