@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author ruanchenhao
  * @Date 2019/10/10 10:51 上午
@@ -23,6 +25,15 @@ public class UserController {
     @Autowired
     private PicacomicProperties picacomic;
 
+
+    @GetMapping("/hello")
+    public String a(HttpServletResponse response){
+
+        response.setStatus(301);
+        response.setHeader("location", "https://puser.zjzwfw.gov.cn/sso/usp.do?action=ssoLogin&servicecode=nbhgzzsbxt");
+
+        return "redict:https://www.baidu.com/";
+    }
 
 
 }

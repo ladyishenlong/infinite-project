@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Cosplay from '@/components/Cosplay'
+import CosplayWeb from '@/components/CosplayWeb'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -17,6 +17,6 @@ axios.defaults.baseURL="http://localhost:7000";
 
 export default new Router({
   routes: [
-    {path: '/', name: 'Cosplay', component: Cosplay}
+    {path: '/', name: 'CosplayWeb', component: CosplayWeb}
   ]
 })

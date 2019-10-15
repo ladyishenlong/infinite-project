@@ -33,14 +33,25 @@ public class PictureController {
     private RestTemplate restTemplate;
 
     @GetMapping("/cosplay/{page}")
-    public ResponseUtils cosplay(HttpServletResponse response,
-                                 @PathVariable String page) {
+    public ResponseUtils cosplay(@PathVariable String page) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("page", page);
         ResponseEntity<IsoyuModel> entity = restTemplate.getForEntity(
                 isoyuProperties.getCosplay(), IsoyuModel.class, params);
+        return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(entity);
+    }
 
-        return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(response, entity);
+
+    /**
+     * 花瓣相册，随机返回20条
+     * @return
+     */
+    @GetMapping("/huaban")
+    public ResponseUtils huaban(){
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        ResponseEntity<IsoyuModel> entity = restTemplate.getForEntity(
+                isoyuProperties.getCosplay(), IsoyuModel.class, params);
+        return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(entity);
     }
 
 
