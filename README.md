@@ -1,1 +1,1 @@
-# infinite-project 说民
+# infinite-project 说明
