@@ -6,13 +6,11 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author ruanchenhao
- * @Date 2019/10/10 11:21 上午
+ * @Date 2019/10/17 4:20 下午
  */
 @Data
 @Component
-@ConfigurationProperties("isoyu.url")
-public class IsoyuProperties {
-    private String base;
-    private PictureProperties picture;
-    private NewsProperties news;
+@ConfigurationProperties("isoyu.url.news")
+public class NewsProperties {
+    private String banner;
 }

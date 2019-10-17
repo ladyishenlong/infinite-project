@@ -2,7 +2,7 @@
   <div id="app">
 
 
-    <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
+    <el-menu id="headNav" :default-active="activeIndex" mode="horizontal" @select="handleSelect">
       <el-menu-item index="home">首页</el-menu-item>
       <el-menu-item index="news">新闻</el-menu-item>
       <el-menu-item index="cosplay">图片</el-menu-item>
@@ -30,6 +30,9 @@
         switch (key) {
           case "home":
             this.$router.replace("/");
+            break;
+          case "news":
+            this.$router.replace("/NewsWeb");
             break;
           case "cosplay":
             this.$router.replace("/cosplayWeb");

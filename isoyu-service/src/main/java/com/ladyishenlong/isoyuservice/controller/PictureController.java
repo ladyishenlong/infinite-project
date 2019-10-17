@@ -41,7 +41,7 @@ public class PictureController {
         HashMap<String, String> params = new HashMap<>();
         params.put("page", page);
         ResponseEntity<IsoyuModel> entity = restTemplate.getForEntity(
-                isoyuProperties.getCosplay(), IsoyuModel.class, params);
+                isoyuProperties.getPicture().getCosplay(), IsoyuModel.class, params);
         return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(entity);
     }
 
@@ -54,7 +54,7 @@ public class PictureController {
     public ResponseUtils huaban(){
         HashMap<String, String> params = new HashMap<>();
         ResponseEntity<IsoyuModel> entity = restTemplate.getForEntity(
-                isoyuProperties.getHuaban(), IsoyuModel.class, params);
+                isoyuProperties.getPicture().getHuaban(), IsoyuModel.class, params);
         return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(entity);
     }
 
