@@ -1,5 +1,4 @@
 <template>
-
   <div>
 
     <el-row>
@@ -26,15 +25,20 @@
     <ElButton class="primary" @click="cosplay">请求测试</ElButton>
 
   </div>
-
 </template>
+
 
 <script>
   export default {
     name: "CosplayWeb",
+    created() {//创建的时候执行
+      this.cosplay();
+
+
+    },
     data() {
       return {
-        page: 10,
+        page: 0,
         isoyuModel: {
           code: 0,
           message: '',
@@ -63,16 +67,24 @@
       }
     },
     methods: {
+
+
+      //请求和获取cosplay图片的方法
       cosplay() {
+        this.page = this.page + 10;
+        console.log("当前page:"+this.page);
         this.axios.get('/isoyu/cosplay/' + this.page)
           .then((result) => {
             this.isoyuModel = result.data;
+
             if (this.isoyuModel.code === 0) {
+
               //for循环加入数组
               this.isoyuModel.data.forEach(model => {
                 this.cosplayModel = model;
                 this.cosplayModels.push(this.cosplayModel);
               })
+
             } else console.log(this.isoyuModel.message)
           })
           .catch((error) => {

@@ -5,6 +5,7 @@ import com.ladyishenlong.isoyuservice.model.IsoyuModel;
 import com.ladyishenlong.isoyuservice.properties.IsoyuProperties;
 import com.ladyishenlong.isoyuservice.utils.IsoyuResponseUtils;
 import com.ladyishenlong.responseutils.ResponseUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * @Author ruanchenhao
  * @Date 2019/10/10 12:57 下午
  */
+@Slf4j
 @RestController
 public class PictureController {
 
@@ -34,8 +37,9 @@ public class PictureController {
 
     @GetMapping("/cosplay/{page}")
     public ResponseUtils cosplay(@PathVariable String page) {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("page", page);
+        //get请求需要在url上添加占位符，负责参数无法传递
+        HashMap<String, String> params = new HashMap<>();
+        params.put("page", page);
         ResponseEntity<IsoyuModel> entity = restTemplate.getForEntity(
                 isoyuProperties.getCosplay(), IsoyuModel.class, params);
         return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(entity);
@@ -48,9 +52,9 @@ public class PictureController {
      */
     @GetMapping("/huaban")
     public ResponseUtils huaban(){
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        HashMap<String, String> params = new HashMap<>();
         ResponseEntity<IsoyuModel> entity = restTemplate.getForEntity(
-                isoyuProperties.getCosplay(), IsoyuModel.class, params);
+                isoyuProperties.getHuaban(), IsoyuModel.class, params);
         return IsoyuResponseUtils.<List<CosplayModel>>entityAnalysis(entity);
     }
 

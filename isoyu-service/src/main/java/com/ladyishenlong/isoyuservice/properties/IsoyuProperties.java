@@ -14,4 +14,5 @@ import org.springframework.stereotype.Component;
 public class IsoyuProperties {
     private String base;
     private String cosplay;
+    private String huaban;
 }

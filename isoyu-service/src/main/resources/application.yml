@@ -13,6 +13,6 @@ spring:
 isoyu:
   url:
     base: https://api.isoyu.com/api
-
-    cosplay: ${isoyu.url.base}/picture/index
+    cosplay: ${isoyu.url.base}/picture/index?page={page}
+    huaban: ${isoyu.url.base}/hua_ban
 
