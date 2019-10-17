@@ -22,7 +22,7 @@
       </div>
     </el-row>
 
-    <ElButton class="primary" @click="cosplay">请求测试</ElButton>
+    <ElButton class="primary" @click="cosplay">点击加载</ElButton>
 
   </div>
 </template>
@@ -67,8 +67,6 @@
       }
     },
     methods: {
-
-
       //请求和获取cosplay图片的方法
       cosplay() {
         this.page = this.page + 10;
