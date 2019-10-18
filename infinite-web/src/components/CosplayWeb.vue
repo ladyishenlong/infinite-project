@@ -3,7 +3,9 @@
 
     <el-row>
       <div v-for=" modelItem in cosplayModels">
+
         <el-col :sm="6">
+
           <el-card style="margin: 10px;  height: 310px"
                    :body-style="{ padding: '0px'}" class="box-card">
 
@@ -18,6 +20,7 @@
             <div style="margin: 10px">{{modelItem.setname}}</div>
 
           </el-card>
+
         </el-col>
       </div>
     </el-row>
@@ -73,6 +76,7 @@
         console.log("当前page:"+this.page);
         this.axios.get('/isoyu/cosplay/' + this.page)
           .then((result) => {
+
             this.isoyuModel = result.data;
 
             if (this.isoyuModel.code === 0) {

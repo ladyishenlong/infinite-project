@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ApiOpenResponseUtils {
 
     public static <T> ResponseUtils entityAnalysis(HttpServletResponse response,
-                                                   ResponseEntity<ApiopenModel> entity) {
+                                                     ResponseEntity<ApiopenModel> entity) {
         if (entity.getStatusCode() == HttpStatus.OK) {
             ApiopenModel<T> apiopenModel = entity.getBody();
             if (apiopenModel == null) return ResponseUtils.failure("返回的body为空");
@@ -28,5 +28,15 @@ public class ApiOpenResponseUtils {
         }
     }
 
+    public static <T> ResponseUtils entityAnalysis(ResponseEntity<ApiopenModel> entity) {
+        if (entity.getStatusCode() == HttpStatus.OK) {
+            ApiopenModel<T> apiopenModel = entity.getBody();
+            if (apiopenModel == null) return ResponseUtils.failure("返回的body为空");
+            else if (apiopenModel.getCode() == 200) return ResponseUtils.success(apiopenModel.getResult());
+            else return ResponseUtils.failure(apiopenModel.getMessage());
+        } else {
+            return ResponseUtils.failure(entity.getStatusCodeValue());
+        }
+    }
 
 }

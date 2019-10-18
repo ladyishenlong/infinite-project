@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios'
 import NewsWeb from "@/components/NewsWeb";
 import HomeWeb from "@/components/HomeWeb";
 import CosplayWeb from '@/components/CosplayWeb'
+import MusicWeb from "@/components/MusicWeb";
 
 
 Vue.use(Router);
@@ -20,6 +21,8 @@ export default new Router({
   routes: [
     {path: '/', name: 'HomeWeb', component: HomeWeb},
     {path: '/newsWeb', name: 'NewsWeb', component: NewsWeb},
-    {path: '/cosplayWeb', name: 'CosplayWeb', component: CosplayWeb}
+    {path: '/cosplayWeb', name: 'CosplayWeb', component: CosplayWeb},
+    {path: '/musicWeb', name: 'MusicWeb', component: MusicWeb}
+
   ]
 })

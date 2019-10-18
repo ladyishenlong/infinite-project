@@ -2,13 +2,13 @@
   <div id="app">
 
 
-    <el-menu id="headNav" :default-active="activeIndex" mode="horizontal" @select="handleSelect">
+    <el-menu id="handleNav" :default-active="activeIndex" mode="horizontal" @select="handleSelect">
       <el-menu-item index="home">首页</el-menu-item>
       <el-menu-item index="news">新闻</el-menu-item>
       <el-menu-item index="cosplay">图片</el-menu-item>
+      <el-menu-item index="music">音乐</el-menu-item>
       <el-menu-item index="setting">设置</el-menu-item>
     </el-menu>
-
 
     <!--  路由页面内容  -->
     <router-view/>
@@ -37,6 +37,9 @@
           case "cosplay":
             this.$router.replace("/cosplayWeb");
             break;
+          case "music":
+            this.$router.replace("/musicWeb");
+            break
         }
       }
     }
@@ -48,7 +51,7 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+    /*text-align: center;*/
     color: #2c3e50;
   }
 </style>

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 public class ApiopenProperties {
 
     private String base;
-    private String wangYiNews;
+    private String wangYiNews;//网易新闻
+
+    private String musicRankings;//音乐排行版
+
 
 }
