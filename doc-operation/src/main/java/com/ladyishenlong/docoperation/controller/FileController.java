@@ -1,5 +1,6 @@
 package com.ladyishenlong.docoperation.controller;
 
+import com.ladyishenlong.docoperation.utils.ExcelUtils;
 import com.ladyishenlong.responseutils.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -45,6 +46,7 @@ public class FileController {
 
         //开始处理文件
         try {
+
             InputStream inputStream = excelFile.getInputStream();
             Workbook wb;
             if (excelFileName.matches("^.+\\.(?i)(xlsx)$")) {
@@ -61,6 +63,7 @@ public class FileController {
             int rows = sheet.getLastRowNum();//行数
 
             //行与列的类型是自动对应的，且从0开始
+            //利用for循环进行遍历
             String value = sheet.getRow(0).getCell(0).getStringCellValue();
             log.info("列数：{},行数：{}", column, rows);
 
@@ -68,7 +71,7 @@ public class FileController {
             return ResponseUtils.success(value);
 
         } catch (Exception e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
             return ResponseUtils.failure(e.getMessage());
         }
 
