@@ -23,4 +23,5 @@ apiopen:
     base: https://api.apiopen.top
     wangYiNews: ${apiopen.url.base}/getWangYiNews
     musicRankings: ${apiopen.url.base}/musicRankings
+    musicBroadcasting: ${apiopen.url.base}/musicBroadcasting
 

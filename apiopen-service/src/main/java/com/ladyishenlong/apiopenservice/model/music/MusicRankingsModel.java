@@ -1,4 +1,4 @@
-package com.ladyishenlong.apiopenservice.model;
+package com.ladyishenlong.apiopenservice.model.music;
 
 import lombok.Data;
 

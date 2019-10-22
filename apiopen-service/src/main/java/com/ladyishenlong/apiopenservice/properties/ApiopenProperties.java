@@ -17,6 +17,7 @@ public class ApiopenProperties {
     private String wangYiNews;//网易新闻
 
     private String musicRankings;//音乐排行版
+    private String musicBroadcasting;//音乐电台接口
 
 
 }
