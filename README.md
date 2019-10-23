@@ -1,3 +1,7 @@
-# infinite-project 说明
+# infinite-project 
 
-## infinite-gateway 7000 网关 
+## infinite-gateway 10000 
+- webflux gateway 网关
+
+## test-service 10001
+- 用于测试的服务
