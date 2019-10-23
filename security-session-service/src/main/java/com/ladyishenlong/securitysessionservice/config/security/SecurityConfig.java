@@ -1,13 +1,10 @@
-package com.ladyishenlong.securityservice.config.security;
+package com.ladyishenlong.securitysessionservice.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
@@ -21,13 +18,6 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
-    private SessionRegistry sessionRegistry;
-
-    @Bean
-    public SessionRegistry sessionRegistry() {
-        return new SessionRegistryImpl();
-    }
 
 
     @Override
@@ -48,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .sessionManagement() //配置session管理策略
                 .maximumSessions(1)//最大并行有效session数目
-                .sessionRegistry(sessionRegistry) //后登陆的使先登录的session失效
+                .maxSessionsPreventsLogin(false)//false之后登录踢掉之前登录,true则不允许之后登录
+
 
         ;
     }

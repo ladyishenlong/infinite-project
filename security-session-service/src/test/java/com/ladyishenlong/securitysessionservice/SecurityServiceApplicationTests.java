@@ -1,4 +1,4 @@
-package com.ladyishenlong.securityservice;
+package com.ladyishenlong.securitysessionservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

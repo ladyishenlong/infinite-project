@@ -1,9 +1,7 @@
-package com.ladyishenlong.securityservice.config.security;
+package com.ladyishenlong.securitysessionservice.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.FlushMode;
-import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
-import org.springframework.session.data.redis.RedisFlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieHttpSessionIdResolver;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
@@ -11,8 +9,9 @@ import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 /**
  * @Author ruanchenhao
  * @Date 2019/10/23 2:34 下午
+ * maxInactiveIntervalInSeconds 设置session的有效时间
  */
-@EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE)
+@EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE,maxInactiveIntervalInSeconds = 30)
 public class HttpSessionConfig {
 
 
@@ -22,7 +21,7 @@ public class HttpSessionConfig {
      *
      * @return
      */
-    @Bean
+//    @Bean
     public CookieHttpSessionIdResolver cookieHttpSessionIdResolver() {
         return new CookieHttpSessionIdResolver();
     }

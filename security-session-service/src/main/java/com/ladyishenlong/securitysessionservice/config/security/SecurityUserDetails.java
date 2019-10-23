@@ -1,4 +1,4 @@
-package com.ladyishenlong.securityservice.config.security;
+package com.ladyishenlong.securitysessionservice.config.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

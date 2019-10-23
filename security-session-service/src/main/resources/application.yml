@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: security-service
+    name: security-session-service
   redis:
     host: localhost
     port: 6379

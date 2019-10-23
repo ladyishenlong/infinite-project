@@ -1,8 +1,9 @@
-package com.ladyishenlong.securityservice.config.security;
+package com.ladyishenlong.securitysessionservice.config.security;
 
+import com.google.gson.Gson;
+import com.ladyishenlong.responseutils.ResponseUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +21,10 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=utf-8");
-
+        String result = new Gson().toJson(ResponseUtils.success("登录成功", request.getSession().getId()));
         //返回sessionId 用来验证登录请求
         PrintWriter writer = response.getWriter();
-        writer.println(request.getSession().getId());
+        writer.println(result);
         writer.close();
     }
 }

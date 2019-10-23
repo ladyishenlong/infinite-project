@@ -8,5 +8,5 @@
 ## test-service 10001
 - 用于测试的服务
 
-## security-service 10002
-- spring security
+## security-session-service 10002
+- spring security 使用sessionId作为登录凭证
