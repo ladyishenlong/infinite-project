@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: security-service
+  redis:
+    host: localhost
+    port: 6379
 
   cloud:
     #consul作为注册中心
