@@ -1,0 +1,9 @@
+server:
+  port: 10003
+spring:
+  application:
+    name: security-jwt-service
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500

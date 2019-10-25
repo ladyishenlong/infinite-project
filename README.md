@@ -10,3 +10,7 @@
 
 ## security-session-service 10002
 - spring security 使用sessionId作为登录凭证
+
+## security-jwt-service 10003
+- spring security使用jew token作为登录凭证
+- token与session相比无需再后台储存信息，属于无状态

@@ -11,7 +11,7 @@ import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
  * @Date 2019/10/23 2:34 下午
  * maxInactiveIntervalInSeconds 设置session的有效时间
  */
-@EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE,maxInactiveIntervalInSeconds = 30)
+@EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE,maxInactiveIntervalInSeconds = 1800)
 public class HttpSessionConfig {
 
 

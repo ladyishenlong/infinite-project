@@ -39,8 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement() //配置session管理策略
                 .maximumSessions(1)//最大并行有效session数目
                 .maxSessionsPreventsLogin(false)//false之后登录踢掉之前登录,true则不允许之后登录
-
-
         ;
     }
 
