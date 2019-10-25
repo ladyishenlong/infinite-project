@@ -31,21 +31,12 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    public TokenAuthenticationFilter(AuthenticationManager authenticationManager) {
-        super(new AntPathRequestMatcher("/login", "POST"));
-        setAuthenticationManager(authenticationManager);
+
+    protected TokenAuthenticationFilter(String defaultFilterProcessesUrl, AuthenticationManager authenticationManage) {
+        super(defaultFilterProcessesUrl);
+        setAuthenticationManager(authenticationManage);
     }
 
-
-    /**
-     * 登录时需要验证时候调用
-     *
-     * @param request
-     * @param response
-     * @return
-     * @throws AuthenticationException
-     * @throws IOException
-     */
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
@@ -54,33 +45,25 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
 //        User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
 //        log.info("登录用户信息：{}",user);
 
-        String jsonparam = StreamUtils.copyToString(request.getInputStream(),
-                StandardCharsets.UTF_8);
+//        String jsonparam = StreamUtils.copyToString(request.getInputStream(),
+//                StandardCharsets.UTF_8);
+//
+//        log.info("查看登录信息：{}", jsonparam);
 
-        log.info("查看登录信息：{}", jsonparam);
+        //在这里验证用户登录信息
+//        UsernamePasswordAuthenticationToken authRequest =
+//                new UsernamePasswordAuthenticationToken("123", "123");
+//
+//        return getAuthenticationManager().authenticate(authRequest);
+        if(true)throw  new AuthenticationServiceException("读取登录请求参数异常");
+        return null;
 
-        UsernamePasswordAuthenticationToken authRequest =
-                new UsernamePasswordAuthenticationToken
-                        ("123", "123");
-
-        return getAuthenticationManager().authenticate(authRequest);
     }
 
 
-    /**
-     * 验证成功后调用
-     *
-     * @param request
-     * @param response
-     * @param chain
-     * @param authResult
-     * @throws IOException
-     * @throws ServletException
-     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        log.info("登录成功");
-
+        log.info("登录成功,返回token信息");
         String token = TokenUtils.createToken();
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
@@ -89,15 +72,7 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         out.close();
     }
 
-    /**
-     * 验证失败后调用
-     *
-     * @param request
-     * @param response
-     * @param failed
-     * @throws IOException
-     * @throws ServletException
-     */
+
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         response.setContentType("application/json;charset=utf-8");

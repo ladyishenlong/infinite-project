@@ -34,7 +34,8 @@ public class SecurityUserDetails implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        log.info("用户登录信息验证");
+        log.info("用户登录信息验证：{}",username);
+
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         //用户可以有多种权限，所以这里使用list

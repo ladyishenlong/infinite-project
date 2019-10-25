@@ -40,7 +40,9 @@ public class SecurityUserDetails implements UserDetailsService {
         List<GrantedAuthority> authorities = Collections.singletonList(
                 new SimpleGrantedAuthority("root"));
 
-        if(!"123".equals(username))throw new UsernameNotFoundException(username);
+//        if(!"123".equals(username))throw new UsernameNotFoundException(username);
+
+        if(true) throw new UsernameNotFoundException(username);
 
         return new User(username, encoder.encode("123"),authorities);
     }

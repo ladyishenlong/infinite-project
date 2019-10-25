@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -15,14 +16,23 @@ import java.util.Map;
  */
 public class TokenUtils {
 
+
+
+
+
     public static String createToken() {
         return Jwts.builder()
-                .setSubject("niceyoo")//可以设置成用户名，解析后得到用户名
+                .setSubject("123")//可以设置成用户名，解析后得到用户名
                 .claim("authorities", "admin")//配置用户角色
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 60 * 1000))
                 .signWith(SignatureAlgorithm.HS512, "tmax")
                 .compact();
     }
+
+
+
+
+
 
     public void parserToken() {
         try {
