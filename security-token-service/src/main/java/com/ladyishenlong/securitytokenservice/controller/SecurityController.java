@@ -1,5 +1,6 @@
-package com.ladyishenlong.securityjwtservice.controller;
+package com.ladyishenlong.securitytokenservice.controller;
 
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ public class SecurityController {
 
     @GetMapping("/test")
     public String test(){
+
         return "请求 jwt 成功";
     }
 
