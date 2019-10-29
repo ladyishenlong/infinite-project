@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -19,11 +20,9 @@ import java.util.List;
  */
 public class TokenUtils {
 
-    private static final String SECRET = "salt";
-
 
     public static String createToken(String username, String secret,
-                                     List<GrantedAuthority> authorities) {
+                                     Collection<GrantedAuthority> authorities) {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("authorities", authorities)//配置用户角色
@@ -32,6 +31,9 @@ public class TokenUtils {
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
+
+
+
 
 
 
