@@ -29,10 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().cacheControl();//禁用缓存
 
         http
-                .formLogin()
-
+                .cors()
                 .and()
-
+                .formLogin().disable()
                 .csrf().disable()//禁用csrf防护
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//关闭session
 
@@ -40,28 +39,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/login").permitAll()
-
                 .anyRequest().access("@tokenAuthService.hasPermission(request,authentication)")
-
                 //.authenticated()// 所有请求必须认证
 
-                .and().exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                .authenticationProvider(getLoginAuthProvider())
+
+
+                .httpBasic()
+
+
 
                 .and()
-                .addFilterAfter(new UserAuthFilter("/login", authenticationManager()),
+                .exceptionHandling()
+                //未授权处理
+                .authenticationEntryPoint(new UnAuthorizedEntryPoint())
+                //权限不足的处理
+//               .accessDeniedHandler()
+
+
+                .and()
+                .addFilterBefore(new UserAuthFilter("/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class);
     }
 
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(getLoginAuthProvider());//自定义验证验证的provider
-    }
-
 
     @Bean
     public LoginAuthProvider getLoginAuthProvider() {
+        //采用该方式初始化，在LoginAuthProvider中除了构造函数之外可以依赖注入
         return new LoginAuthProvider(loginUserDetailsService);
     }
 

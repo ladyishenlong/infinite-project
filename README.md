@@ -1,5 +1,6 @@
 # infinite-project 
 - 本项目使用consul作为注册中心，可以使用docker部署
+- 配置了consul作为注册中心的项目，如果consul没有起来，启动的时候会报错导致无法启动
 
 ## infinite-gateway 10000 
 - webflux gateway 网关

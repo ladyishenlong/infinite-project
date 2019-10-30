@@ -31,32 +31,35 @@ public class LoginAuthProvider extends DaoAuthenticationProvider {
     protected void additionalAuthenticationChecks(UserDetails userDetails,
                                                   UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
-        if (((UserAuthToken) authentication).getPrincipal() == null ||
-                StringUtils.isEmpty(((UserAuthToken) authentication).getPrincipal().toString()))
-            throw new BadCredentialsException("用户名为空");
+//        if (((UserAuthToken) authentication).getPrincipal() == null ||
+//                StringUtils.isEmpty(((UserAuthToken) authentication).getPrincipal().toString()))
+//            throw new BadCredentialsException("用户名为空");
 
-        if (((UserAuthToken) authentication).getVerificationcode() == null ||
-                StringUtils.isEmpty(((UserAuthToken) authentication).getVerificationcode().toString()))
-            throw new BadCredentialsException("验证码为空");
+//        if (((UserAuthToken) authentication).getVerificationcode() == null ||
+//                StringUtils.isEmpty(((UserAuthToken) authentication).getVerificationcode().toString()))
+//            throw new BadCredentialsException("验证码为空");
+//
+//        if (((UserAuthToken) authentication).getCredentials() == null ||
+//                StringUtils.isEmpty(((UserAuthToken) authentication).getCredentials().toString()))
+//            throw new BadCredentialsException("密码为空");
+//
+//        UserModel userModel = (UserModel) userDetails;//从数据库查出来的参数
+//        UserAuthToken userAuthToken = (UserAuthToken) authentication;//登录请求携带的参数
+//
+//
+//        String presentedVerificationcode = userAuthToken.getVerificationcode().toString();
+//        String presentedPassword = userAuthToken.getCredentials().toString();
+//
+//
+//
+//        if (!presentedVerificationcode.equals(userModel.getVerificationcode()))
+//            throw new BadCredentialsException("验证码不正确");
+//
+//        if (!getPasswordEncoder().matches(presentedPassword, userDetails.getPassword()))
+//            throw new BadCredentialsException("密码不正确");
 
-        if (((UserAuthToken) authentication).getCredentials() == null ||
-                StringUtils.isEmpty(((UserAuthToken) authentication).getCredentials().toString()))
-            throw new BadCredentialsException("密码为空");
 
-        UserModel userModel = (UserModel) userDetails;//从数据库查出来的参数
-        UserAuthToken userAuthToken = (UserAuthToken) authentication;//登录请求携带的参数
-
-
-        String presentedVerificationcode = userAuthToken.getVerificationcode().toString();
-        String presentedPassword = userAuthToken.getCredentials().toString();
-
-
-
-        if (!presentedVerificationcode.equals(userModel.getVerificationcode()))
-            throw new BadCredentialsException("验证码不正确");
-
-        if (!getPasswordEncoder().matches(presentedPassword, userDetails.getPassword()))
-            throw new BadCredentialsException("密码不正确");
+        log.info("验证用户");
 
 
     }

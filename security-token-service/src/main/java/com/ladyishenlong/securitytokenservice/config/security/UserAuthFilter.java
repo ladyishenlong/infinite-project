@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ladyishenlong.responseutils.ResponseUtils;
 import com.ladyishenlong.securitytokenservice.test.Student;
 import com.ladyishenlong.securitytokenservice.utils.TokenUtils;
+import com.ladyishenlong.securitytokenservice.utils.WriteUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,35 +84,18 @@ public class UserAuthFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException, ServletException {
-
         UserModel userModel = (UserModel) (authResult.getPrincipal());
-
         String token = TokenUtils.createToken(userModel.getUsername(),
-                userModel.getSecret(), userModel.getAuthorities());
-
-        response.setContentType("application/json;charset=utf-8");
-        PrintWriter out = response.getWriter();
-
-        //ObjectMapper().writeValueAsString() 将java字符转为了json
-        out.write(new ObjectMapper().writeValueAsString(
-                ResponseUtils.success("登录成功", token)));
-
-        out.flush();
-        out.close();
+                userModel.getSecret(),
+                userModel.getAuthorities());
+        WriteUtils.writeJson(response,ResponseUtils.success("登录成功",token));
     }
 
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
-        response.setContentType("application/json;charset=utf-8");
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        PrintWriter out = response.getWriter();
-        out.write(new ObjectMapper().writeValueAsString(
-                ResponseUtils.failure(HttpStatus.UNAUTHORIZED.value(),
-                        "登录失败", failed.getMessage())));
-        out.flush();
-        out.close();
+        WriteUtils.writeLoginFailed(response,failed.getMessage());
     }
 
 

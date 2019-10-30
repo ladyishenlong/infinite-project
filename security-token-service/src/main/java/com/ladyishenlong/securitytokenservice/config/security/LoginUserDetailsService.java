@@ -34,6 +34,9 @@ public class LoginUserDetailsService implements UserDetailsService {
 
         //TODO 如果用户没有被查询到，可以直接抛出 UsernameNotFoundException
         //TODO 数据库查询 获取  用户名 密码 secret 权限 验证码 等信息
+        //TODO spring security 框架默认用户名密码，如果使用验证码方式，直接在后台写死一个固定密码，否则会有问题
+
+        //测试环境 写死一个用户信息
         return new UserModel(Student.username, encoder.encode(Student.password),
                 Student.secret, Student.verificationcode, Student.authorities);
     }
