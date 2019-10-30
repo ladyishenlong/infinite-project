@@ -2,6 +2,7 @@ package com.ladyishenlong.securitytokenservice.config.security;
 
 import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author ruanchenhao

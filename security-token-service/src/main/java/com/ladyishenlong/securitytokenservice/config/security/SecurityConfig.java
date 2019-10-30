@@ -1,5 +1,6 @@
 package com.ladyishenlong.securitytokenservice.config.security;
 
+import org.aspectj.weaver.ast.And;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -24,36 +25,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.headers().cacheControl();//禁用缓存
+
         http
                 .formLogin()
 
                 .and()
+
                 .csrf().disable()//禁用csrf防护
-                .sessionManagement()//session管理
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//使用 JWT，关闭session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//关闭session
 
                 .and()
                 .authorizeRequests()
                 .antMatchers("/test").permitAll()
-                .anyRequest().authenticated()// 所有请求必须认证
+                .antMatchers("/login").permitAll()
 
-                .and().exceptionHandling()//认证失败返回401
+                .anyRequest().access("@tokenAuthService.hasPermission(request,authentication)")
+
+                //.authenticated()// 所有请求必须认证
+
+                .and().exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 
                 .and()
-
-//                .authenticationProvider(new UserAuthProvider(new SecurityUserDetails()))
-
-                //对登录请求进行自定义的过滤
-                .addFilterBefore(new UserAuthFilter(
-                                "/login", authenticationManager()),
+                .addFilterAfter(new UserAuthFilter("/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class);
-
-
-        //TODO 普通请求进行过滤
-        ;
     }
-
 
 
     @Override
@@ -62,14 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
-    /**
-     * 使用该方法初始化，除了在构造方法之中，
-     * 其余地方调用注入方法不会为空
-     *
-     * @return
-     */
     @Bean
     public LoginAuthProvider getLoginAuthProvider() {
         return new LoginAuthProvider(loginUserDetailsService);

@@ -22,4 +22,9 @@ public class SecurityController {
         return "请求 jwt 成功";
     }
 
+
+    @GetMapping("/test2")
+    public String test2(){
+        return "请求 jwt 成功2";
+    }
 }
