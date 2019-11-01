@@ -2,7 +2,10 @@ package com.ladyishenlong.securitytokenservice.config.security;
 
 import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
 
 /**
  * @Author ruanchenhao
@@ -12,11 +15,18 @@ import org.springframework.stereotype.Component;
 @Data
 public class UserAuthToken extends UsernamePasswordAuthenticationToken {
 
-    private final Object verificationcode;
+    private Object verificationcode;
 
     public UserAuthToken(Object principal, Object credentials, Object verificationcode) {
         super(principal, credentials);
         this.verificationcode = verificationcode;
     }
+
+
+    public UserAuthToken(Object principal, Object credentials,
+                         Collection<? extends GrantedAuthority> authorities) {
+        super(principal, credentials, authorities);
+    }
+
 
 }

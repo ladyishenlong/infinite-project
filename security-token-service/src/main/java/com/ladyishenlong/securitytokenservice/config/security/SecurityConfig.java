@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginUserDetailsService loginUserDetailsService;
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -33,36 +35,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().disable()
                 .csrf().disable()//禁用csrf防护
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//关闭session
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//关闭session
 
                 .and()
+
+                //配置请求的权限
                 .authorizeRequests()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/login").permitAll()
-                .anyRequest().access("@tokenAuthService.hasPermission(request,authentication)")
-                //.authenticated()// 所有请求必须认证
+                .anyRequest()
+                .access("@AuthService.authenticated(request,authentication)")
+
+//                .authenticated()// 所有请求必须认证
 
                 .and()
                 .authenticationProvider(getLoginAuthProvider())
-
-
                 .httpBasic()
-
-
 
                 .and()
                 .exceptionHandling()
                 //未授权处理
                 .authenticationEntryPoint(new UnAuthorizedEntryPoint())
                 //权限不足的处理
-//               .accessDeniedHandler()
-
+                //.accessDeniedHandler()
 
                 .and()
                 .addFilterBefore(new UserAuthFilter("/login", authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class);
-    }
+                        UsernamePasswordAuthenticationFilter.class)
+        ;
 
+    }
 
 
     @Bean

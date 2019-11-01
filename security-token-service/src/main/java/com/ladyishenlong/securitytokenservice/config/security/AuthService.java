@@ -4,10 +4,13 @@ import com.ladyishenlong.securitytokenservice.test.Student;
 import com.ladyishenlong.securitytokenservice.utils.TokenUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -26,24 +29,42 @@ import java.io.IOException;
  * 校验token
  */
 @Slf4j
-@Component(value = "tokenAuthService")
-public class TokenAuthService {
+@Component(value = "AuthService")
+public class AuthService {
 
-    public boolean hasPermission(HttpServletRequest request, Authentication authentication)
+
+    @Autowired
+    private Student student;
+
+    public boolean authenticated(HttpServletRequest request, Authentication authentication)
             throws AuthenticationException {
 
         String token = request.getHeader(TokenUtils.AUTHORIZATION);
+        Object principal = authentication.getPrincipal();
+
+        log.info("查看principal:{}", principal);
 
         if (StringUtils.isEmpty(token)) throw new BadCredentialsException("该请求没有登录凭证");
 
         //有信息验证就通过了
-        Claims claims= TokenUtils.parserToken(token, Student.secret);
-        log.info("查看信息：{}",claims);
+        Claims claims = TokenUtils.parserToken(token, Student.secret);
+        //TODO 在这里验证用户的权限角色
+
+        String username = claims.getSubject();
 
 
-        return false;
+        log.info("查看权限：{}",student.getA());
+
+
+        UserAuthToken userAuthToken =
+                new UserAuthToken(Student.username, Student.password, Student.authorities);
+
+
+        SecurityContextHolder.getContext()
+                .setAuthentication(userAuthToken);
+
+        return true;
     }
 
 
 }
- 

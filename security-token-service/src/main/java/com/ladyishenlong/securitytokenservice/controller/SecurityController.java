@@ -8,8 +8,11 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 /**
  * @Author ruanchenhao
@@ -28,7 +31,9 @@ public class SecurityController {
 
 
     @GetMapping("/test2")
-    public String test2() {
-        return "请求 jwt 成功2";
+    public String test2(Principal principal) {
+        Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return "请求 jwt 成功2" + principal.getName();
     }
+
 }
