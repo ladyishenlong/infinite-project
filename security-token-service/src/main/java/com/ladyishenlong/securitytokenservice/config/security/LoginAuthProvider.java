@@ -60,6 +60,7 @@ public class LoginAuthProvider extends DaoAuthenticationProvider {
 //            throw new BadCredentialsException("密码不正确");
 
 
+
         log.info("验证用户");
 
 

@@ -1,0 +1,9 @@
+server:
+  port: 10004
+
+spring:
+  application:
+    name: swagger-server
+
+
+#swagger接口信息获取地址： http://localhost:10004/v2/api-docs

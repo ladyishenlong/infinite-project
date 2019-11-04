@@ -25,14 +25,12 @@ public class SecurityController {
 
     @GetMapping("/test")
     public String test() {
-        TokenUtils.aa();
         return "请求 jwt 成功";
     }
 
 
     @GetMapping("/test2")
     public String test2(Principal principal) {
-        Object p = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return "请求 jwt 成功2" + principal.getName();
     }
 

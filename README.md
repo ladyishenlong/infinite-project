@@ -15,3 +15,7 @@
 ## security-jwt-service 10003
 - spring security使用jew token作为登录凭证
 - token与session相比无需再后台储存信息，属于无状态
+
+## swagger-server 10004
+- swagger2配置生成在线api
+- json数据获取 http://localhost:10004/v2/api-docs

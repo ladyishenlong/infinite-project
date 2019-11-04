@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +23,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @Author ruanchenhao
@@ -52,8 +57,19 @@ public class AuthService {
 
         String username = claims.getSubject();
 
+        List<GrantedAuthority> authorities =
+                (List<GrantedAuthority>) (claims.get("authorities"));
 
-        log.info("查看权限：{}",student.getA());
+
+        log.info("盘算用户权限：" + authorities);
+
+        for (int i = 0; i < authorities.size(); i++) {
+            LinkedHashMap gu = (LinkedHashMap)authorities.get(i);
+            log.info("查看"+authorities.get(i));
+            log.info("查看信息：{}",gu.get("authority"));
+        }
+
+        log.info("查看权限：{}", student.getA());
 
 
         UserAuthToken userAuthToken =
