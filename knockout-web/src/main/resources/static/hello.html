@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello页面</title>
+
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
+
+</head>
+
+
+<body>
+
+<!--静态绑定-->
+<div class='liveExample'>
+    <p>First name: <input data-bind='value: firstName'/></p>
+    <p>Last name: <input data-bind='value: lastName'/></p>
+    <h2>Hello, <span data-bind='text: fullName'> </span>!</h2>
+</div>
+
+<div id="name" data-bind="text:name"></div>
+
+<script>
+    var ViewModel = function (first, last) {
+        this.firstName = ko.observable(first);
+        this.lastName = ko.observable(last);
+        this.fullName = ko.computed(function () {
+            return this.firstName() + " " + this.lastName();
+        }, this);
+    };
+
+    var nameModel={
+        "name":"这是名字"
+    };
+
+
+    // ko.applyBindings(new ViewModel("zhang", "zhang"));
+    ko.applyBindings(nameModel,document.getElementById("name"));
+
+
+</script>
+
+
+
+</body>
+</html>

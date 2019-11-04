@@ -42,8 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //配置请求的权限
                 .authorizeRequests()
-                .antMatchers("/test").permitAll()
+
+                //todo 可以传入
+                .antMatchers("/test").access(
+                        "@AuthService.auth('root',request,authentication)")
+
                 .antMatchers("/login").permitAll()
+
+                //普通的请求
                 .anyRequest()
                 .access("@AuthService.authenticated(request,authentication)")
 

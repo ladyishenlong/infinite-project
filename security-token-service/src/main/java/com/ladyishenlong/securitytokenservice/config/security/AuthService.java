@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * @Author ruanchenhao
  * @Date 2019/10/29 3:21 下午
- * 校验token
+ * 非登录请求需要校验token
  */
 @Slf4j
 @Component(value = "AuthService")
@@ -44,8 +44,13 @@ public class AuthService {
     public boolean authenticated(HttpServletRequest request, Authentication authentication)
             throws AuthenticationException {
 
-        String token = request.getHeader(TokenUtils.AUTHORIZATION);
-        Object principal = authentication.getPrincipal();
+        String token = request.getHeader(TokenUtils.AUTHORIZATION);//获取头部token
+
+        // SecurityContextHolder.getContext()
+        //                .setAuthentication(userAuthToken)
+        //如果在之前的过滤器中已经调设置权限的方法，这里可以获取到用户信息
+        //在这里，authentication可以不传入
+        Object principal = authentication.getPrincipal();//当前用户信息
 
         log.info("查看principal:{}", principal);
 
@@ -64,9 +69,9 @@ public class AuthService {
         log.info("盘算用户权限：" + authorities);
 
         for (int i = 0; i < authorities.size(); i++) {
-            LinkedHashMap gu = (LinkedHashMap)authorities.get(i);
-            log.info("查看"+authorities.get(i));
-            log.info("查看信息：{}",gu.get("authority"));
+            LinkedHashMap gu = (LinkedHashMap) authorities.get(i);
+            log.info("查看" + authorities.get(i));
+            log.info("查看信息：{}", gu.get("authority"));
         }
 
         log.info("查看权限：{}", student.getA());
@@ -80,6 +85,13 @@ public class AuthService {
                 .setAuthentication(userAuthToken);
 
         return true;
+    }
+
+    public boolean auth(String name,HttpServletRequest request, Authentication authentication)
+            throws AuthenticationException {
+
+        log.info("查看信息：{}",name);
+    return true;
     }
 
 

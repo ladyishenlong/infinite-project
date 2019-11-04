@@ -1,0 +1,6 @@
+server:
+  port: 10005
+
+spring:
+  application:
+    name: knockout-web

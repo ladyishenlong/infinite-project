@@ -19,3 +19,7 @@
 ## swagger-server 10004
 - swagger2配置生成在线api
 - json数据获取 http://localhost:10004/v2/api-docs
+- markup可以生成静态文档（还没集成）
+
+## knockout-web 10005
+- 使用knockout 前端框架
