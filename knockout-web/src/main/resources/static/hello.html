@@ -3,45 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>hello页面</title>
-
     <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
-
 </head>
 
 
 <body>
 
-<!--静态绑定-->
+
 <div class='liveExample'>
     <p>First name: <input data-bind='value: firstName'/></p>
     <p>Last name: <input data-bind='value: lastName'/></p>
     <h2>Hello, <span data-bind='text: fullName'> </span>!</h2>
 </div>
+<button data-bind="click: capitalizeLastName">点击转化</button>
 
-<div id="name" data-bind="text:name"></div>
+<br/>
 
-<script>
-    var ViewModel = function (first, last) {
-        this.firstName = ko.observable(first);
-        this.lastName = ko.observable(last);
-        this.fullName = ko.computed(function () {
-            return this.firstName() + " " + this.lastName();
-        }, this);
-    };
+<input type='checkbox' data-bind='checked: is_checked'>
+<br/>
+<strong data-bind='visible: is_checked'>Hello World</strong>
 
-    var nameModel={
-        "name":"这是名字"
-    };
+<br/>
+<button data-bind='click: render'>渲染列表</button>
+<br/>
+<ul data-bind='foreach: rows'>
+    <li data-bind='text: $data'></li>
+</ul>
 
-
-    // ko.applyBindings(new ViewModel("zhang", "zhang"));
-    ko.applyBindings(nameModel,document.getElementById("name"));
-
-
-</script>
+<br/>
+<button data-bind='click: render2'>对象列表</button>
+<br/>
+<ul data-bind='foreach: rows2'>
+    <li data-bind='text: name'></li>
+</ul>
 
 
+分解输入
+<p>Firstname:<span data-bind="text: first"></span></p>
+<p>Lastname:<span data-bind="text: last"></span></p>
+<h2>Hello,<input data-bind="value: full"/>!</h2>
+
+
+值转换
+<p>输入价格e:<input data-bind="value: formattedPrice"/></p>
+
+
+筛选和验证用户输入
+<p>输入数字:<input data-bind="value: attemptedValue"/></p>
+<div data-bind="visible: !lastInputWasValid()">That's not a number!</div>
+
+<script src="hello.js"></script>
 
 </body>
 </html>
