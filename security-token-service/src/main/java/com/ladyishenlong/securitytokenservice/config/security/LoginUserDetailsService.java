@@ -2,6 +2,7 @@ package com.ladyishenlong.securitytokenservice.config.security;
 
 import com.ladyishenlong.securitytokenservice.test.Student;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -27,6 +28,9 @@ import java.util.List;
 @Component
 public class LoginUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private Student student;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //密码需要加密
@@ -37,8 +41,8 @@ public class LoginUserDetailsService implements UserDetailsService {
         //TODO spring security 框架默认用户名密码，如果使用验证码方式，直接在后台写死一个固定密码，否则会有问题
 
         //测试环境 写死一个用户信息
-        return new UserModel(Student.username, encoder.encode(Student.password),
-                Student.secret, Student.verificationcode, Student.authorities);
+        return new UserModel(student.getUsername(), encoder.encode(student.getPassword()),
+                student.getSecret(), student.getVerificationcode(), student.getAuthorities());
     }
 
 }

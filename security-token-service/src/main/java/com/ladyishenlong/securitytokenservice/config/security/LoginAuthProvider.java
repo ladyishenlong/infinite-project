@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -32,15 +33,20 @@ public class LoginAuthProvider extends DaoAuthenticationProvider {
     protected void additionalAuthenticationChecks(UserDetails userDetails,
                                                   UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
+        //todo 还能做一些非空的判断
 
         UserModel userModel = (UserModel) userDetails;//从数据库查出来的参数
         UserAuthToken userAuthToken = (UserAuthToken) authentication;//登录请求携带的参数
 
+        if (!getPasswordEncoder().matches(userAuthToken.getCredentials().toString(),
+                userModel.getPassword()))
+            throw new BadCredentialsException("密码错误");
 
+        if (!userAuthToken.getVerificationcode()
+                .equals(userModel.getVerificationcode()))
+            throw new BadCredentialsException("验证码错误");
 
-        log.info("验证用户：{},{}",userModel,userAuthToken);
-
-
+        log.info("验证用户：{},{}", userModel, userAuthToken);
     }
 
 

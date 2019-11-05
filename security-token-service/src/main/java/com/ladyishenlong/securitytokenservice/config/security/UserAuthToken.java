@@ -22,10 +22,8 @@ public class UserAuthToken extends UsernamePasswordAuthenticationToken {
         this.verificationcode = verificationcode;
     }
 
-
-    public UserAuthToken(Object principal, Object credentials,
-                         Collection<? extends GrantedAuthority> authorities) {
-        super(principal, credentials, authorities);
+    public UserAuthToken(Object principal) {
+        super(principal, "");
     }
 
 

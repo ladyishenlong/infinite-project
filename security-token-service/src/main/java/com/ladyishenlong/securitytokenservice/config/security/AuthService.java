@@ -41,57 +41,109 @@ public class AuthService {
     @Autowired
     private Student student;
 
-    public boolean authenticated(HttpServletRequest request, Authentication authentication)
+//    public boolean authenticated(HttpServletRequest request, Authentication authentication)
+//            throws AuthenticationException {
+//
+//        String token = request.getHeader(TokenUtils.AUTHORIZATION);//获取头部token
+//
+//        // SecurityContextHolder.getContext()
+//        //                .setAuthentication(userAuthToken)
+//        //如果在之前的过滤器中已经调设置权限的方法，这里可以获取到用户信息
+//        //在这里，authentication可以不传入
+//        Object principal = authentication.getPrincipal();//当前用户信息
+//
+//        log.info("查看principal:{}", principal);
+//
+//        if (StringUtils.isEmpty(token)) throw new BadCredentialsException("该请求没有登录凭证");
+//
+//        //有信息验证就通过了
+//        Claims claims = TokenUtils.parserToken(token, student.getSecret());
+//        //TODO 在这里验证用户的权限角色
+//
+//        String username = claims.getSubject();
+//
+//        List<GrantedAuthority> authorities =
+//                (List<GrantedAuthority>) (claims.get("authorities"));
+//
+//
+//        log.info("盘算用户权限：" + authorities);
+//
+//        for (int i = 0; i < authorities.size(); i++) {
+//            LinkedHashMap gu = (LinkedHashMap) authorities.get(i);
+//            log.info("查看" + authorities.get(i));
+//            log.info("查看信息：{}", gu.get("authority"));
+//        }
+//
+//        log.info("查看权限：{}", student.getA());
+//
+//
+//        UserAuthToken userAuthToken =
+//                new UserAuthToken(Student.username, Student.password, Student.authorities);
+//
+//
+//        SecurityContextHolder.getContext()
+//                .setAuthentication(userAuthToken);
+//
+//        return true;
+//    }
+
+
+    /**
+     * 普通请求认证
+     *
+     * @param request
+     * @return
+     * @throws AuthenticationException
+     */
+    public boolean auth(HttpServletRequest request)
             throws AuthenticationException {
-
-        String token = request.getHeader(TokenUtils.AUTHORIZATION);//获取头部token
-
-        // SecurityContextHolder.getContext()
-        //                .setAuthentication(userAuthToken)
-        //如果在之前的过滤器中已经调设置权限的方法，这里可以获取到用户信息
-        //在这里，authentication可以不传入
-        Object principal = authentication.getPrincipal();//当前用户信息
-
-        log.info("查看principal:{}", principal);
-
-        if (StringUtils.isEmpty(token)) throw new BadCredentialsException("该请求没有登录凭证");
-
-        //有信息验证就通过了
-        Claims claims = TokenUtils.parserToken(token, Student.secret);
-        //TODO 在这里验证用户的权限角色
-
+        String token = request.getHeader(TokenUtils.AUTHORIZATION);
+        //解析密钥是后台查询的
+        Claims claims = TokenUtils.parserToken(token, student.getSecret());
+        //用户名
         String username = claims.getSubject();
-
-        List<GrantedAuthority> authorities =
-                (List<GrantedAuthority>) (claims.get("authorities"));
-
-
-        log.info("盘算用户权限：" + authorities);
-
-        for (int i = 0; i < authorities.size(); i++) {
-            LinkedHashMap gu = (LinkedHashMap) authorities.get(i);
-            log.info("查看" + authorities.get(i));
-            log.info("查看信息：{}", gu.get("authority"));
-        }
-
-        log.info("查看权限：{}", student.getA());
-
-
-        UserAuthToken userAuthToken =
-                new UserAuthToken(Student.username, Student.password, Student.authorities);
-
-
+        UserAuthToken userAuthToken = new UserAuthToken(username);
+        //设置Context
         SecurityContextHolder.getContext()
                 .setAuthentication(userAuthToken);
-
         return true;
     }
 
-    public boolean auth(String name,HttpServletRequest request, Authentication authentication)
-            throws AuthenticationException {
 
-        log.info("查看信息：{}",name);
-    return true;
+    /**
+     * 单个 用户权限验证
+     *
+     * @param role
+     * @param request
+     * @return
+     */
+    public boolean role(String role, HttpServletRequest request) {
+        String token = request.getHeader(TokenUtils.AUTHORIZATION);
+        //解析密钥是后台查询的
+        Claims claims = TokenUtils.parserToken(token, student.getSecret());
+
+        //用户名
+        String username = claims.getSubject();
+        //权限
+        List<LinkedHashMap<String, String>> authorities =
+                (List<LinkedHashMap<String, String>>) (claims.get("authorities"));
+
+
+        boolean hasRole = false;
+        for (LinkedHashMap<String, String> authority : authorities) {
+            if (authority.get("authority").equals(role)) {
+                hasRole = true;
+                break;
+            }
+        }
+
+        if (!hasRole) throw new BadCredentialsException("没有访问该接口的权限");
+
+
+        UserAuthToken userAuthToken = new UserAuthToken(username);
+        SecurityContextHolder.getContext()
+                .setAuthentication(userAuthToken);
+        return false;
     }
 
 

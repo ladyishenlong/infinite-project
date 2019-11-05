@@ -25,13 +25,18 @@ public class SecurityController {
 
     @GetMapping("/test")
     public String test() {
-        return "请求 jwt 成功";
+        return "无需权限请求成功";
     }
-
 
     @GetMapping("/test2")
     public String test2(Principal principal) {
-        return "请求 jwt 成功2" + principal.getName();
+        return "普通需要权限请求成功：" + principal.getName();
+    }
+
+
+    @GetMapping("/test3")
+    public String test3() {
+        return "需要root权限请求成功";
     }
 
 }

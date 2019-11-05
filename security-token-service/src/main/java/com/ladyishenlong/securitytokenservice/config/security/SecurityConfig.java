@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers().cacheControl();//禁用缓存
 
+        //TODO 需要允许预请求
+
         http
                 .cors()
                 .and()
@@ -42,18 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //配置请求的权限
                 .authorizeRequests()
-
-                //todo 可以传入
-                .antMatchers("/test").access(
-                        "@AuthService.auth('root',request,authentication)")
-
                 .antMatchers("/login").permitAll()
+                .antMatchers("/test").permitAll()
 
+                //需要特定用户的权限
+                .antMatchers("/test3").access(
+                        "@AuthService.role('bigboss',request)")
                 //普通的请求
-                .anyRequest()
-                .access("@AuthService.authenticated(request,authentication)")
-
-//                .authenticated()// 所有请求必须认证
+                .anyRequest().access("@AuthService.auth(request)")
 
                 .and()
                 .authenticationProvider(getLoginAuthProvider())
@@ -63,8 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 //未授权处理
                 .authenticationEntryPoint(new UnAuthorizedEntryPoint())
-                //权限不足的处理
-                //.accessDeniedHandler()
 
                 .and()
                 .addFilterBefore(new UserAuthFilter("/login", authenticationManager()),

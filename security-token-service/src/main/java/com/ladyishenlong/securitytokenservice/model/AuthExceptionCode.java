@@ -33,4 +33,26 @@ public enum AuthExceptionCode {
     }
 
 
+    public static int getCode(String codeValue) {
+        int code = 0;
+        for (AuthExceptionCode value : AuthExceptionCode.values()) {
+            if (value.codeValue.equals(codeValue)) {
+                code = value.code;
+                break;
+            }
+        }
+        return code;
+    }
+
+    public static String getReason(String code) {
+        String reason = "";
+        for (AuthExceptionCode value : AuthExceptionCode.values()) {
+            if (value.codeValue.equals(code)) {
+                reason = value.reason;
+                break;
+            }
+        }
+        return reason;
+    }
+
 }

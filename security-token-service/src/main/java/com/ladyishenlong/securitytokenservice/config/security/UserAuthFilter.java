@@ -36,6 +36,9 @@ import java.util.List;
  * <p>
  * 访问登录的url 对用户信息进行验证
  * 验证通过返回token，其余接口通过token验证权限
+ * <p>
+ * filter不用使用依赖注入，所以不能在这里进行依赖注入
+ * 因此密码验证码的判断并不是在此处进行
  */
 @Slf4j
 public class UserAuthFilter extends UsernamePasswordAuthenticationFilter {
@@ -48,6 +51,14 @@ public class UserAuthFilter extends UsernamePasswordAuthenticationFilter {
     }
 
 
+    /**
+     * 登录接口，用户粗
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest request, HttpServletResponse response)
@@ -61,41 +72,69 @@ public class UserAuthFilter extends UsernamePasswordAuthenticationFilter {
         if (StringUtils.isEmpty(password)) password = "";
         if (StringUtils.isEmpty(verificationcode)) verificationcode = "";
 
-
-        //也可以在这里设置成短信验证码等数据
-//        UsernamePasswordAuthenticationToken authRequest =
-//                new UsernamePasswordAuthenticationToken(username, password);
-//
-
         UserAuthToken userAuthToken = new UserAuthToken(username, password, verificationcode);
 
-        //将传入的用户信息放入
+        //将post请求传入的用户信息放入
         return getAuthenticationManager().authenticate(userAuthToken);
+    }
 
+
+    /**
+     * 登录请求成功返回的的信息
+     * 在这里返回的是token
+     *
+     * @param request
+     * @param response
+     * @param chain
+     * @param authResult
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authResult) throws IOException, ServletException {
+
+        UserModel userModel = (UserModel) (authResult.getPrincipal());
+
+        //生成token
+        String token = TokenUtils.createToken(userModel.getUsername(),
+                userModel.getSecret(),
+                userModel.getAuthorities());
+
+        response.setContentType("application/json;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.write(new ObjectMapper().writeValueAsString(
+                ResponseUtils.success("登录成功", token)));
+        out.flush();
+        out.close();
+    }
+
+
+    /**
+     * 登录请求失败返回的信息
+     *
+     * @param request
+     * @param response
+     * @param failed
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+        //也可以设置401状态码
+        response.setContentType("application/json;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.write(new ObjectMapper().writeValueAsString(
+                ResponseUtils.failure(failed.getMessage())));
+        out.flush();
+        out.close();
     }
 
 
     @Nullable
     protected String obtainVerificationCode(HttpServletRequest request) {
         return request.getParameter(VERIFICATION_CODE);
-    }
-
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                            FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        UserModel userModel = (UserModel) (authResult.getPrincipal());
-        String token = TokenUtils.createToken(userModel.getUsername(),
-                userModel.getSecret(),
-                userModel.getAuthorities());
-        WriteUtils.writeJson(response,ResponseUtils.success("登录成功",token));
-    }
-
-
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                              AuthenticationException failed) throws IOException, ServletException {
-        WriteUtils.writeLoginFailed(response,failed.getMessage());
     }
 
 
