@@ -67,16 +67,15 @@ public class TokenUtils {
             Claims claims = Jwts
                     .parser()
                     .setSigningKey("secretKey")
-                    .parseClaimsJws("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5ndWFuIiwic3ViIjoiMTEwMDExMSIsImF1ZCI6ImFsbCIsImV4cCI6MTU3MjU2ODE3MywiaWF0IjoxNTcyNTI0OTczLCJqdGkiOiI2NjViNmQ0MzdhNDc0OTJhYTkxMGFjZWYwNWJhMzgyOSJ9.BRHL36CLa3tA_e7yoslGbIl5Vmo-X2fpebn7D5SJaCo")
-
-//                    .parseClaimsJws("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5ndWFuIiwic3ViIjoiMTEwMDExMSIsImF1ZCI6ImFsbCIsImV4cCI6MTU3MjU2ODE3MywiaWF0IjoxNTcyNTI0OTczLCJqdGkiOiI2NjViNmQ0MzdhNDc0OTJhYTkxMGFjZWYwNWJhMzgyOSJ9.V9BPCGQzS-NxLR83ng6BH06wkcxgVFpsKRwFGgnNJY0")
-//                    .parseClaimsJws("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqaW5ndWFuIiwic3ViIjoiMTEwMDExMSIsImF1ZCI6ImFsbCIsImV4cCI6MTU3MjU2NDA4NCwiaWF0IjoxNTcyNTIwODg0LCJqdGkiOiI1ZDkwZmE4MjAwYjA0YWM0YmMzNWVmMzAzYmFhOGM4MSJ9.MdAAN9R3oH3vsxYvVWFog5SGQTtAIgCwarzSVrkNI-Q")
+                    .parseClaimsJws("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjMiLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiYWRtaW4ifSx7ImF1dGhvcml0eSI6InJvb3QifV0sImlhdCI6MTU3MjkxNzk3NywiZXhwIjoxNTcyOTI3OTc3fQ.GNLzzrlpmImeNzfeU0BJ_IK-9OjbhXxITG-fwpgSeaTztte9qOICzq0StJzW_xmGt_r42PQz-N-NWZsOINbidQ")
                     .getBody();
 
             System.out.println(claims);
             String username = claims.getSubject();
             System.out.println("username:" + username);
             String authority = claims.get("authorities").toString();
+
+
             System.out.println("权限：" + authority);
 
         } catch (ExpiredJwtException e) {

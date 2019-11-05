@@ -128,7 +128,6 @@ public class AuthService {
         List<LinkedHashMap<String, String>> authorities =
                 (List<LinkedHashMap<String, String>>) (claims.get("authorities"));
 
-
         boolean hasRole = false;
         for (LinkedHashMap<String, String> authority : authorities) {
             if (authority.get("authority").equals(role)) {
