@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>尝试</title>
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
+    <script src="page.js"></script>
+</head>
+<body>
+
+
+<h4>用户列表 绑定foreach</h4>
+<ul data-bind="foreach: people">
+    <li>
+        <!--   $index数组下标     -->
+        用户编号： <span data-bind="text: $index"> </span>:
+        <span data-bind="text: name"> </span>
+        <!--   $parent来使用foreach元素之外的属性     -->
+        <a href="#" data-bind="click: $parent.removePerson">删除</a>
+    </li>
+</ul>
+<button data-bind="click: addPerson">添加用户</button>
+
+
+<h4>if绑定</h4>
+<label>
+    <input type="checkbox" data-bind="checked: ifBindMessage"/>
+    勾选显示信息
+</label>
+<!--if 与 visible 效果相似，但是会修改dom结构-->
+<div data-bind="if:ifBindMessage">if绑定显示的信息</div>
+<div data-bind="visible:ifBindMessage">visible绑定显示的信息</div>
+
+<!--<h5>submit绑定</h5>-->
+<!--<form data-bind="submit: getAccount">-->
+<!--    账号：<input data-bind="value:account">-->
+<!--    <button type="submit">提交账号</button>-->
+<!--</form>-->
+<p>结果: <label data-bind="text:accountResult"></label></p>
+
+
+
+</div>
+
+
+</body>
+</html>

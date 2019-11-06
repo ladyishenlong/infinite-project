@@ -42,6 +42,16 @@
 </div>
 
 
+<h4>任务列表</h4>
+<ul data-bind="foreach: people">
+    <li>
+        当前位置： <span data-bind="text: $index"> </span>:
+        <span data-bind="text: name"> </span>
+        <a href="#" data-bind="click: $parent.removePerson">删除</a>
+    </li>
+</ul>
+<button data-bind="click: addPerson">添加</button>
+
 
 
 

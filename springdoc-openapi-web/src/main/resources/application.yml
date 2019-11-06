@@ -1,0 +1,6 @@
+server:
+  port: 10007
+
+spring:
+  application:
+    name: springdoc-openapi-web

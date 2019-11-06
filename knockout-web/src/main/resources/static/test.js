@@ -26,6 +26,15 @@ var model = {
     },
     disableDetails: function () {
         this.detailsEnabled(false);
+    },
+
+    //动态表格
+    people: ko.observableArray([]),
+    addPerson: function () {
+        this.people.push({name: "名字"})
+    },
+    removePerson: function () {
+        this.people.remove(this.people);
     }
 
 };

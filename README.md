@@ -20,6 +20,16 @@
 - swagger2配置生成在线api
 - json数据获取 http://localhost:10004/v2/api-docs
 - markup可以生成静态文档（还没集成）
+- v2
 
 ## knockout-web 10005
 - 使用knockout 前端框架
+
+## springdoc-openapi-web 10006
+- springdoc-openapi 尝试集成
+- 之后有空尝试webflux集成
+- openapi 3.0
+- /v3/api-docs  
+- v3
+
+## openapi-web 10007
