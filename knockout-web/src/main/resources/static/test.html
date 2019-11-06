@@ -9,6 +9,7 @@
 
     <script src="test.js"></script>
 
+
     <style>
         .profitWarning {
             color: brown;
@@ -25,6 +26,25 @@
 <div data-bind="css: { profitWarning: currentProfit() < 0 }">
     控制css是否绑定
 </div>
+
+
+<div data-bind="visible: msgVisible">显示与消失信息</div>
+<button data-bind="click: btnVisible">点击显示与消失</button>
+
+
+<div>
+    <div data-bind="event: { mouseover: enableDetails, mouseout: disableDetails }">
+        绑定event,鼠标在上面时候显示文字，离开时文字消失
+    </div>
+    <div data-bind="visible: detailsEnabled">
+        明细的文字
+    </div>
+</div>
+
+
+
+
+
 
 
 </body>

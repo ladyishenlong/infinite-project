@@ -19,6 +19,7 @@ var ViewModel = function (first, last) {
         this.rows(arr);
     };
 
+
     this.rows2 = ko.observableArray([]);
     this.render2 = function () {
         var arr = [{name: "name1"}, {name: "name2"}];
