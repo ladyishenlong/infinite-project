@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ko.js</title>
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
+    <script src="/page/ko.js"></script>
+
+    <style>
+        .testStyle {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+
+<label>
+    <input type="checkbox" data-bind="checked: isCheck">
+    点击勾选
+</label>
+<div data-bind="visible:isCheck">是否显示文字</div>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>表格第一项</th>
+        <th>表格第二项</th>
+        <th>单项删除</th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: table">
+    <tr>
+        <td data-bind="text: $index"></td>
+        <td data-bind="text: firstItem"></td>
+        <td data-bind="text: lastItem"></td>
+        <td>
+            <button data-bind="click: $parent.removeTableOne">删除</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<button data-bind="click: tableAdd">表格添加</button>
+
+
+<div data-bind="style:{color: showColor() ? 'red' : 'black' }">style绑定</div>
+<div data-bind="css:{testStyle :showColor()}">css进行绑定</div>
+
+</body>
+</html>
