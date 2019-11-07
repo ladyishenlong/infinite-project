@@ -26,10 +26,10 @@
 - 使用knockout 前端框架
 
 ## springdoc-openapi-web 10006
+- https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations
 - springdoc-openapi 尝试集成
 - 之后有空尝试webflux集成
 - openapi 3.0
 - /v3/api-docs  
 - v3
 
-## openapi-web 10007

@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,11 @@ import javax.jws.soap.SOAPBinding;
  * @Date 2019/11/6 2:21 下午
  * 生成接口文档的注解
  */
+
+
 @Slf4j
 @RestController
+@Tag(name = "TestController")
 public class TestController {
 
     @Operation(summary = "hello world的接口")
