@@ -142,7 +142,7 @@ public class AuthService {
         UserAuthToken userAuthToken = new UserAuthToken(username);
         SecurityContextHolder.getContext()
                 .setAuthentication(userAuthToken);
-        return false;
+        return true;
     }
 
 

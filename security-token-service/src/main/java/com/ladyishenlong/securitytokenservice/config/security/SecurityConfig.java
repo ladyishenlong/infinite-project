@@ -30,8 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers().cacheControl();//禁用缓存
 
-        //TODO 需要允许预请求
-
         http
                 .cors()
                 .and()
@@ -48,10 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/test").permitAll()
 
                 //需要特定用户的权限
-                .antMatchers("/test3").access(
-                        "@AuthService.role('bigboss',request)")
+                .antMatchers("/test3")
+                .access("@AuthService.role('bigboss',request)")
                 //普通的请求
-                .anyRequest().access("@AuthService.auth(request)")
+                .anyRequest()
+                .access("@AuthService.auth(request)")
+
 
                 .and()
                 .authenticationProvider(getLoginAuthProvider())
@@ -75,6 +75,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //采用该方式初始化，在LoginAuthProvider中除了构造函数之外可以依赖注入
         return new LoginAuthProvider(loginUserDetailsService);
     }
-
 
 }

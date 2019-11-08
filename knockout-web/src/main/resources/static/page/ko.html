@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>ko.js</title>
-    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>
-    <script src="/page/ko.js"></script>
+
+
+    <script src="https://cdn.bootcss.com/require.js/2.3.5/require.js"
+            data-main="/js/ko" defer async="true"></script>
+
+<!--    <script src="/js/resource.js"></script>-->
+
+
+    <!--    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
+    <!--    <script src="https://knockoutjs.com/downloads/knockout-3.5.0.js"></script>-->
+
+    <!--    <script src="/js/ko.js"></script>-->
+
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"-->
+    <!--            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"-->
+    <!--            crossorigin="anonymous"></script>-->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"-->
+    <!--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+
 
     <style>
         .testStyle {
@@ -38,16 +57,33 @@
         <td data-bind="text: firstItem"></td>
         <td data-bind="text: lastItem"></td>
         <td>
-            <button data-bind="click: $parent.removeTableOne">删除</button>
+            <button class="btn btn-default"
+                    data-bind="click: $parent.removeTableOne">删除
+            </button>
         </td>
     </tr>
     </tbody>
 </table>
-<button data-bind="click: tableAdd">表格添加</button>
+
+<button class="btn btn-default" data-bind="click: tableAdd">表格添加</button>
 
 
 <div data-bind="style:{color: showColor() ? 'red' : 'black' }">style绑定</div>
 <div data-bind="css:{testStyle :showColor()}">css进行绑定</div>
+
+
+<div data-bind="event:{ mouseover: showText, mouseout: hideText }">event绑定</div>
+<div data-bind="visible: showorhideText">event绑定的文字</div>
+
+<label>
+    用户名：
+    <input data-bind="value:username">
+</label>
+<label>
+    密 码：
+    <input data-bind="value:password">
+</label>
+<div data-bind="text:user"></div>
 
 </body>
 </html>

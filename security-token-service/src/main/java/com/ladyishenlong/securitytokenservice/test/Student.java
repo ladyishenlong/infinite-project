@@ -23,10 +23,9 @@ public class Student {
 
     public String username = "123";
     public String password = "456";
-    public String verificationcode = "789";
-    public String secret = "secretKey";
-    public Set<GrantedAuthority> authorities;
-
+    public String verificationcode = "789"; //验证码
+    public String secret = "secretKey"; // token的密钥
+    public Set<GrantedAuthority> authorities; //用户权限
 
     public Set<GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
@@ -34,6 +33,4 @@ public class Student {
         authorities.add(new SimpleGrantedAuthority("admin"));
         return authorities;
     }
-
-
 }

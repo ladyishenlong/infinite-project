@@ -35,7 +35,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'com.github.ladyishenlong:response-utils:1.0'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
-
 }
 
 dependencyManagement {
