@@ -1,6 +1,8 @@
 package com.ladyishenlong.swaggerservice.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.AuthorizationScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @ApiOperation(value = "测试的接口")
-    @GetMapping("/hello")
+    @GetMapping("/hello/test")
     public String hello() {
+        return "hello world";
+    }
+
+
+    @ApiOperation(value = "测试的接口2", authorizations =
+    @Authorization(value = "jwt",
+            scopes = {
+                    @AuthorizationScope(scope = "root", description = "描述"),
+                    @AuthorizationScope(scope = "admin", description = "描述")
+            }
+    )
+    )
+    @GetMapping("/hello/test2")
+    public String hello2() {
         return "hello world";
     }
 

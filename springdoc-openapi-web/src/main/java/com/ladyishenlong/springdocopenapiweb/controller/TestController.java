@@ -5,15 +5,21 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * @Author ruanchenhao
@@ -28,18 +34,19 @@ import javax.jws.soap.SOAPBinding;
 public class TestController {
 
     @Operation(summary = "hello world的接口")
-    @GetMapping("/hello")
-    public String hello() {
+    @GetMapping("/hello/{id}")
+    public String hello(@PathVariable String id) {
         return "hello world v3";
     }
 
-
     @Operation(summary = "测试登录的接口",
+            description = "描述的文字",
             responses = {
                     @ApiResponse(description = "登录信息",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = UserModel.class))),
-                    @ApiResponse(responseCode = "400", description = "返回400时候错误的原因")})
+                    @ApiResponse(responseCode = "400", description = "返回400时候错误的原因")},
+            security = @SecurityRequirement(name = "需要认证"))
     @GetMapping("/login")
     public UserModel login(
             @Parameter(description = "用户名")
@@ -55,17 +62,31 @@ public class TestController {
     }
 
 
+    @Operation(summary = "swagger v3 信息全部写头上", description = "描述的文字",
+            parameters = {
+                    @Parameter(name = "auth", description = "请求头", in = ParameterIn.HEADER),
+                    @Parameter(name = "id", description = "id", in = ParameterIn.PATH),
+                    @Parameter(name = "param", description = "参数"),
+            },
+            responses = {@ApiResponse(responseCode = "400", description = "400错误")},
+            security = @SecurityRequirement(name = "需要认证"))
+    @GetMapping("/param/{id}")
+    public String param(HttpServletRequest httpServletRequest,
+                        @RequestParam(value = "param") String param,
+                        @PathVariable(value = "id") String id) {
+        String auth = httpServletRequest.getHeader("auth");
+        return "查看参数： " + auth;
+    }
 
-    @Hidden//可以隐藏该接口
+
+    //@Hidden//可以隐藏该接口
     @Operation(summary = "测试上传用户信息", responses = {
             @ApiResponse(description = "用户信息",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserModel.class))),
     })
     @PostMapping("/user")
-    public UserModel user(
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "用户上传信息")
-            @RequestBody UserModel userModel) {
+    public UserModel user(@RequestBody UserModel userModel) {
         return userModel;
     }
 

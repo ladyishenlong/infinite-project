@@ -6,6 +6,7 @@ import com.ladyishenlong.securitytokenservice.utils.TokenUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ import java.security.Principal;
  */
 @Slf4j
 @RestController
+@Tag(name = "SecurityController")
 public class SecurityController {
 
 

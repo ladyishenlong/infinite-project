@@ -42,6 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //配置请求的权限
                 .authorizeRequests()
+
+                //放行springdoc-openapi-ui,与swagger类似
+                //TODO 可以用权限表达式在yml文件定义后读取，来阻止正式环境使用
+                .antMatchers("/v3/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+
+
+
                 .antMatchers("/login").permitAll()
                 .antMatchers("/test").permitAll()
 

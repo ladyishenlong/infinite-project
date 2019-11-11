@@ -4,3 +4,12 @@ server:
 spring:
   application:
     name: springdoc-openapi-web
+
+
+
+#禁用springdoc文档
+springdoc:
+  api-docs:
+    enabled: true
+
+

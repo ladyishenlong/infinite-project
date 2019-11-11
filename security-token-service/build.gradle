@@ -24,6 +24,10 @@ ext {
 }
 
 dependencies {
+    //文档
+    implementation 'org.springdoc:springdoc-openapi-ui:1.2.3'
+
+
     implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
