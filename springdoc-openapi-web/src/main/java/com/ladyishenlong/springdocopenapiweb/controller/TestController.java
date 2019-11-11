@@ -6,18 +6,19 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -27,6 +28,18 @@ import javax.servlet.http.HttpServletRequest;
  * 生成接口文档的注解
  */
 
+
+
+@SecurityScheme(
+        name = "安全认证注解",
+        description = "这是描述",
+        type = SecuritySchemeType.OPENIDCONNECT,
+        in = SecuritySchemeIn.HEADER,
+        flows = @OAuthFlows(
+                implicit = @OAuthFlow(
+                        authorizationUrl = "http://url.com/auth",
+                        scopes = @OAuthScope(name = "write:pets",
+                                description = "modify pets in your account"))))
 
 @Slf4j
 @RestController
@@ -53,8 +66,6 @@ public class TestController {
             @RequestParam(value = "username", required = false) String username,
             @Parameter(description = "密码")
             @RequestParam(value = "password") String password) {
-
-        log.info("不知道v3.swagger的注解参数是否能够代替原本的参数");
         UserModel userModel = new UserModel();
         userModel.setUsername(username);
         userModel.setPassword(password);
@@ -69,7 +80,7 @@ public class TestController {
                     @Parameter(name = "param", description = "参数"),
             },
             responses = {@ApiResponse(responseCode = "400", description = "400错误")},
-            security = @SecurityRequirement(name = "需要认证"))
+            security = @SecurityRequirement(name = "需要认证",scopes = "true"))
     @GetMapping("/param/{id}")
     public String param(HttpServletRequest httpServletRequest,
                         @RequestParam(value = "param") String param,

@@ -19,11 +19,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringdocOpenapiWebApplication {
 
-    /**
-     * v3 导出的json 中 path的 key值不确定
-     *
-     * @param args
-     */
     public static void main(String[] args) {
         SpringApplication.run(SpringdocOpenapiWebApplication.class, args);
     }
