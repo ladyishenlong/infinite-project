@@ -1,6 +1,7 @@
 package com.ladyishenlong.securitytokenservice.config.security;
 
 import com.ladyishenlong.responseutils.ResponseUtils;
+import com.ladyishenlong.securitytokenservice.exception.AuthException;
 import com.ladyishenlong.securitytokenservice.model.AuthExceptionCode;
 import com.ladyishenlong.securitytokenservice.utils.WriteUtils;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class UnAuthorizedEntryPoint implements AuthenticationEntryPoint {
         int code = AuthExceptionCode.getCode(authException.getMessage());
         String reason = AuthExceptionCode.getReason(authException.getMessage());
         if (code == 0) reason = authException.getMessage();
+
+        //可以自定义认证异常的类，传入code之类的信息
+        //((AuthException)authException).getCode();
 
         WriteUtils.writeJson(response, ResponseUtils.failure(code, reason, null));
     }

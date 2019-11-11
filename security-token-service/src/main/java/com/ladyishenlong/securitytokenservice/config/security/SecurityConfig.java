@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    //这个类则是从数据库查询用户信息的地方
     @Autowired
     private LoginUserDetailsService loginUserDetailsService;
 
@@ -44,10 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 //放行springdoc-openapi-ui,与swagger类似
-                //TODO 可以用权限表达式在yml文件定义后读取，来阻止正式环境使用
                 .antMatchers("/v3/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
+
 
 
 
@@ -57,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //需要特定用户的权限
                 .antMatchers("/test3")
                 .access("@AuthService.role('bigboss',request)")
-                //普通的请求
+                //普通的请求  使用权限表达氏过滤
                 .anyRequest()
                 .access("@AuthService.auth(request)")
 
@@ -72,6 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new UnAuthorizedEntryPoint())
 
                 .and()
+
+                //登录请求经过的过滤器
                 .addFilterBefore(new UserAuthFilter("/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
         ;
@@ -82,6 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public LoginAuthProvider getLoginAuthProvider() {
         //采用该方式初始化，在LoginAuthProvider中除了构造函数之外可以依赖注入
+        //将自定义的用来验证用户信息是否正确合法的类放入security之中
         return new LoginAuthProvider(loginUserDetailsService);
     }
 
