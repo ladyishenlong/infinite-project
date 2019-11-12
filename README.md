@@ -31,5 +31,11 @@
 - 之后有空尝试webflux集成
 - openapi 3.0
 - /v3/api-docs  
-- v3
 
+
+//连个oauth2项目还有问题
+## oauth2-auth-service 10007
+- oauth2 认证服务器
+
+## oauth2-resource-service 10008
+- oauth2 资源服务器

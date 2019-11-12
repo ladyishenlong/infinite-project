@@ -1,0 +1,20 @@
+server:
+  port: 10007
+
+spring:
+  application:
+    name: oauth2-auth-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+  datasource:
+    url: jdbc:mysql://localhost:33306/student
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    user:
+      name: 123
+      password: 123

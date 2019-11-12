@@ -1,0 +1,21 @@
+server:
+  port: 10008
+spring:
+  application:
+    name: oauth2-resource-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+
+#配置oauth2的地址，通过地址进行身份验证，如果设置错误或者不设置，会导致无法验证
+security:
+  oauth2:
+    client:
+      client-id: 123 #授权服务器配置
+      client-secret: 123 #授权服务器配置
+      access-token-uri: http://localhost:10007/oauth/token
+      user-authorization-uri: http://localhost:10007/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:10007/oauth/check_token

@@ -28,8 +28,6 @@ import javax.servlet.http.HttpServletRequest;
  * 生成接口文档的注解
  */
 
-
-
 @SecurityScheme(
         name = "安全认证注解",
         description = "这是描述",
@@ -40,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
                         authorizationUrl = "http://url.com/auth",
                         scopes = @OAuthScope(name = "write:pets",
                                 description = "modify pets in your account"))))
+
 
 @Slf4j
 @RestController
