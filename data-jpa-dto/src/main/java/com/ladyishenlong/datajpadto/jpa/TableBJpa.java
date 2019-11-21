@@ -1,6 +1,6 @@
 package com.ladyishenlong.datajpadto.jpa;
 
-import com.ladyishenlong.datajpadto.model.TableB;
+import com.ladyishenlong.datajpadto.model.table.TableB;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

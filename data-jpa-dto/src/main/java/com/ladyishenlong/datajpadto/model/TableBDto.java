@@ -4,16 +4,9 @@ import com.ladyishenlong.datajpadto.model.table.TableB;
 
 /**
  * @Author ruanchenhao
- * @Date 2019/11/21 6:08 下午
+ * @Date 2019/11/21 6:24 下午
  */
-public interface TableADto {
-
+public interface TableBDto {
+    String getCard();
     String getName();
-
-    String getPassword();
-
-
-    TableBDto getTableB();
-
-
 }
