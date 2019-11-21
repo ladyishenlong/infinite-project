@@ -21,7 +21,7 @@ public class Oauth2WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
                 .formLogin()
                 .loginProcessingUrl("/login")
-                .loginPage("/login.html")//用js区分手机和web？
+//                .loginPage("/login.html")//用js区分手机和web？
                 .and()
                 .authorizeRequests()
                 //放行登录和身份验证接口

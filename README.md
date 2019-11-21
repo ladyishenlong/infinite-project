@@ -39,3 +39,6 @@
 
 ## oauth2-resource-service 10008
 - oauth2 资源服务器
+
+## data-jpa-dto 10009
+- jpa 查询服务器
