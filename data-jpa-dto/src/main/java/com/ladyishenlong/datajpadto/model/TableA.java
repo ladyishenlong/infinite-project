@@ -2,9 +2,7 @@ package com.ladyishenlong.datajpadto.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -18,6 +16,10 @@ public class TableA implements Serializable {
 
     @Id
     private int id;
-    private String name;
+
+    @OneToOne
+    @JoinColumn(name = "name")//外键，关联表的主键
+    private TableB name;
+
     private String password;
 }

@@ -22,7 +22,7 @@ public class TestController {
 
     @GetMapping("/")
     public Object test(){
-        return tableAJpa.find();
+        return tableAJpa.findAll();
     }
 
 
